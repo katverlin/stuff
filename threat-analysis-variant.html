@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Agent Threat Analysis</title>
+  <link rel="stylesheet" href="threat-analysis-variant.css">
+</head>
+<body>
+  <main class="threat-app" aria-label="Security agent threat analysis workspace">
+    <section class="workspace">
+      <article class="chat-panel" aria-label="Security agent chat">
+        <header class="panel-header chat-header">
+          <div class="agent">
+            <span class="pixel-avatar avatar-obi" aria-hidden="true">
+              <img src="assets/mascots/Obi-Small.png" alt="">
+            </span>
+            <div class="agent-title">
+              <strong>Obi</strong>
+              <span>Threat analysis agent</span>
+            </div>
+          </div>
+          <span class="status-pill">AI security analyst</span>
+        </header>
+
+        <div class="chat-scroll" role="log" aria-live="polite" aria-label="Conversation with Obi" tabindex="0">
+          <article class="chat-message chat-message-user" aria-labelledby="user-message-label">
+            <div class="message-bubble prompt-card">
+              <span class="message-speaker" id="user-message-label">You</span>
+              <p>
+                Analyze the new receipt photo upload feature for potential security threats.
+                The feature allows users to upload a receipt image and attach it to an expense.
+              </p>
+              <ol>
+                <li>What can an attacker try to do with this feature?</li>
+                <li>How would they try to do it? (Step-by-step attack scenario)</li>
+                <li>Could this attack bypass or weaken existing security controls? (authentication, authorization, rate limiting, input validation, etc.)</li>
+                <li>What damage could they cause? (business impact)</li>
+                <li>How can we stop them? (mitigation in developer-friendly terms that works with existing systems)</li>
+                <li>How urgent is this? (High/Medium/Low priority)</li>
+              </ol>
+              <p>Pay special attention to:</p>
+              <ul>
+                <li>Whether current authentication/authorization will still work properly</li>
+                <li>If existing input validation covers the new data flows</li>
+                <li>Whether current rate limiting applies to new functionality</li>
+                <li>If monitoring and logging will capture new security events</li>
+                <li>Any security assumptions that might break with this new feature</li>
+              </ul>
+              <p>
+                Explain security concepts like "input validation," "authorization," and "data exposure"
+                in terms a developer would understand. Focus on realistic attacks that could affect both
+                the new feature and existing functionality.
+              </p>
+            </div>
+          </article>
+
+          <article class="chat-message chat-message-obi" aria-labelledby="obi-message-label">
+            <p class="message-bubble assistant-copy">
+              <span class="message-speaker" id="obi-message-label">Obi</span>
+              Of course. I have created an initial threat analysis for you to read through. Let me know
+              which threats you want to keep, discard or if you want more information on one of the threats.
+            </p>
+          </article>
+        </div>
+
+        <div class="chat-footer">
+          <form class="composer" aria-label="Message security agent">
+            <span class="pixel-avatar avatar-user composer-avatar" aria-hidden="true">
+              <img src="assets/mascots/Nova-Small.png" alt="">
+            </span>
+
+            <div class="composer-main">
+              <div class="composer-sentence">
+                <span data-threat-prompt>Do a deep dive on</span>
+                <div class="threat-picker" data-threat-picker>
+                  <input id="threat-select" type="hidden" name="threat" value="">
+                  <button
+                    type="button"
+                    class="threat-select"
+                    id="threat-select-button"
+                    aria-label="Select threat"
+                    aria-haspopup="listbox"
+                    aria-expanded="false"
+                    aria-controls="threat-options"
+                  >
+                    <span data-threat-label>select threat</span>
+                    <span class="select-arrow" aria-hidden="true"></span>
+                  </button>
+                  <div class="threat-menu" id="threat-options" role="listbox" aria-labelledby="threat-select-button" hidden>
+                    <button type="button" class="threat-option" role="option" data-value="" aria-selected="true">select threat</button>
+                    <button type="button" class="threat-option" role="option" data-value="threat-1" aria-selected="false">Threat 1</button>
+                    <button type="button" class="threat-option" role="option" data-value="threat-2" aria-selected="false">Threat 2</button>
+                    <button type="button" class="threat-option" role="option" data-value="threat-3" aria-selected="false">Threat 3</button>
+                  </div>
+                </div>
+                <span class="sentence-tail" data-threat-tail hidden>and</span>
+              </div>
+
+              <fieldset class="question-options" id="question-options" disabled hidden>
+                <legend class="sr-only">Choose what you want to ask about this threat</legend>
+                <label class="question-choice">
+                  <input type="radio" name="threat-question" value="steps">
+                  <span>walk me through the steps an attacker would follow for this threat</span>
+                </label>
+                <label class="question-choice">
+                  <input type="radio" name="threat-question" value="payload" checked>
+                  <span>explain to me what an attacker would send and what happens in our system.</span>
+                </label>
+                <label class="question-choice">
+                  <input type="radio" name="threat-question" value="patterns">
+                  <span>tell me if there are any specific patterns we could avoid to make this threat non-applicable.</span>
+                </label>
+              </fieldset>
+            </div>
+
+            <div class="composer-actions">
+              <div class="credits chat-credits" aria-label="3 credits left">
+                <strong><span class="bolt" aria-hidden="true"></span>3 credits left</strong>
+              </div>
+              <button type="submit" aria-label="Send message">
+                <span aria-hidden="true">&gt;</span>
+                <span>Send</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </article>
+
+      <article class="analysis-panel" aria-label="Initial threat analysis">
+        <section class="files-context">
+          <div class="section-heading">
+            <h2>Context sources</h2>
+            <span>3 files</span>
+          </div>
+          <div class="file-chips" aria-label="Context files">
+            <button type="button" class="file-chip" aria-label="Open current security requirements markdown file">
+              <span class="file-icon" aria-hidden="true"></span>
+              <span class="file-name">
+                <span>current_security</span>
+                <span>requirements.md</span>
+              </span>
+              <span class="file-open" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="file-chip" aria-label="Open new feature requirements markdown file">
+              <span class="file-icon" aria-hidden="true"></span>
+              <span class="file-name">
+                <span>new_feature</span>
+                <span>requirements.md</span>
+              </span>
+              <span class="file-open" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="file-chip" aria-label="Open current app requirements markdown file">
+              <span class="file-icon" aria-hidden="true"></span>
+              <span class="file-name">
+                <span>current_app</span>
+                <span>requirements.md</span>
+              </span>
+              <span class="file-open" aria-hidden="true"></span>
+            </button>
+          </div>
+        </section>
+
+        <section class="analysis-body">
+          <h1>Initial Threat Analysis - Receipt Photo Upload Feature</h1>
+
+          <h3>Scope</h3>
+          <p>
+            This analysis focuses on the new "Receipt Photo Upload" feature and how it interacts with the
+            existing Personal Expense Tracker SaaS application. It assumes the current security posture and
+            controls described in the comprehensive threat analysis and security requirements.
+          </p>
+
+          <h3>For each significant threat, we cover:</h3>
+          <ol>
+            <li>Attacker goal</li>
+            <li>Attack path (step-by-step)</li>
+            <li>Interaction with existing controls</li>
+            <li>Business impact</li>
+            <li>Mitigation (developer-oriented)</li>
+            <li>Priority</li>
+          </ol>
+        </section>
+
+        <details class="threat-card" aria-label="Threat one">
+          <summary>
+            <span class="threat-title">Threat 1: Malicious File Upload (Server/Infrastructure Compromise)</span>
+            <span class="threat-toggle" aria-hidden="true"></span>
+          </summary>
+
+          <div class="threat-detail">
+            <h3>1) Attacker goal</h3>
+            <ul>
+              <li>Get the system to accept a file that is not a legitimate receipt image (e.g., malware, script, or weaponized image) and use it to compromise the server or users.</li>
+            </ul>
+
+            <h3>2) Attack path</h3>
+            <p>
+              The attacker uploads a crafted file through the receipt flow, then waits for server-side processing,
+              preview generation, or later download to trigger the payload.
+            </p>
+          </div>
+        </details>
+      </article>
+    </section>
+  </main>
+  <script src="threat-analysis-variant.js"></script>
+</body>
+</html>
